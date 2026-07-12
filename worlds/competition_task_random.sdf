@@ -1,0 +1,421 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="competition_task_random">
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    
+ <!-- ========= 传感器插件 ========= -->
+    <plugin filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
+    </plugin>
+    <plugin filename="gz-sim-navsat-system"
+      name="gz::sim::systems::NavSat">
+    </plugin>
+
+ <!-- ========= 视觉环境 ========= -->
+    <scene>
+      <ambient>1.0 1.0 1.0</ambient>
+      <background>0.8 0.8 0.8</background>
+      <sky></sky>
+    </scene>
+
+ <!-- ========= 经纬度海拔 ========= -->
+    <spherical_coordinates>
+      <latitude_deg>-35.363262</latitude_deg>
+      <longitude_deg>149.165237</longitude_deg>
+      <elevation>584</elevation>
+      <heading_deg>0</heading_deg>
+      <surface_model>EARTH_WGS84</surface_model>
+    </spherical_coordinates>
+
+ <!-- ========= 模拟太阳光 ========= -->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.8 0.8 0.8 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+ <!-- ========= 坐标轴 ========= -->
+  <model name="axes">
+        <static>1</static>
+        <link name="link">
+          <visual name="r">
+            <cast_shadows>0</cast_shadows>
+            <pose>5 0 0.1 0 0 0</pose>
+            <geometry>
+              <box>
+                <size>10 0.01 0.01</size>
+              </box>
+            </geometry>
+            <material>
+              <ambient>1 0 0 0.8</ambient>
+              <diffuse>1 0 0 0.8</diffuse>
+              <emissive>1 0 0 0.8</emissive>
+              <specular>0.5 0.5 0.5 0.8</specular>
+            </material>
+          </visual>
+          <visual name="g">
+            <cast_shadows>0</cast_shadows>
+            <pose>0 5 0.1 0 0 0</pose>
+            <geometry>
+              <box>
+                <size>0.01 10 0.01</size>
+              </box>
+            </geometry>
+            <material>
+              <ambient>0 1 0 0.8</ambient>
+              <diffuse>0 1 0 0.8</diffuse>
+              <emissive>0 1 0 0.8</emissive>
+              <specular>0.5 0.5 0.5 0.8</specular>
+            </material>
+          </visual>
+          <visual name="b">
+            <cast_shadows>0</cast_shadows>
+            <pose>0 0 5.1 0 0 0</pose>
+            <geometry>
+              <box>
+                <size>0.01 0.01 10</size>
+              </box>
+            </geometry>
+            <material>
+              <ambient>0 0 1 0.8</ambient>
+              <diffuse>0 0 1 0.8</diffuse>
+              <emissive>0 0 1 0.8</emissive>
+              <specular>0.5 0.5 0.5 0.8</specular>
+            </material>
+          </visual>
+          <sensor name="navsat_sensor" type="navsat">
+            <always_on>1</always_on>
+            <update_rate>1</update_rate>
+          </sensor>
+        </link>
+      </model>
+
+ <!-- ========= 跑道 ========= -->
+      <include>
+        <uri>model://runway</uri>
+        <pose degrees="true">-29 545 0 0 0 363</pose>
+      </include>
+
+ <!-- ========= 机头向东无人机 ========= -->
+      <include>
+        <uri>model://iris_with_ardupilot</uri>
+        <pose degrees="true">0 0 0.195 0 0 90</pose>
+      </include>
+
+    <!-- ========= 起降区 ========= -->
+    <!-- 起降区地面（长33m，宽8m，灰色） -->
+    <model name="takeoff_area_ground">
+      <static>true</static>
+      <link name="link">
+        <visual name="ground">
+          <geometry>
+            <box>
+              <size>33 8 0.05</size>
+            </box>
+          </geometry>
+          <pose>16.5 0 -0.025 0 0 0</pose>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.3 0.3 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 起降坪（直径0.8m，带H标识） -->
+    <model name="takeoff_pad">
+      <static>true</static>
+      <link name="link">
+        <visual name="pad">
+          <geometry>
+            <cylinder>
+              <radius>0.4</radius>
+              <length>0.02</length>
+            </cylinder>
+          </geometry>
+          <pose>0 0 0.01 0 0 0</pose>
+          <material>
+            <ambient>0.2 0.2 0.2 1</ambient>
+            <diffuse>0.2 0.2 0.2 1</diffuse>
+          </material>
+        </visual>
+        <visual name="h_vertical">
+          <geometry>
+            <box>
+              <size>0.3 0.05 0.02</size>
+            </box>
+          </geometry>
+          <pose>0 0 0.02 0 0 0</pose>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+        <visual name="h_horizontal">
+          <geometry>
+            <box>
+              <size>0.05 0.3 0.02</size>
+            </box>
+          </geometry>
+          <pose>0 0 0.02 0 0 0</pose>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 起飞线（白色线，x=2） -->
+    <model name="takeoff_line">
+      <static>true</static>
+      <link name="link">
+        <visual name="line">
+          <geometry>
+            <box>
+              <size>0.1 8 0.01</size>
+            </box>
+          </geometry>
+          <pose>2 0 0.02 0 0 0</pose>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ========= 投放区 ========= -->
+    <!-- 投放区地面（黄色无效区，尺寸8x5） -->
+    <model name="drop_zone_ground">
+      <static>true</static>
+      <link name="link">
+        <visual name="ground">
+          <geometry>
+            <box>
+              <size>8 5 0.05</size>
+            </box>
+          </geometry>
+          <pose>30 0 -0.025 0 0 0</pose>
+          <material>
+            <ambient>0.8 0.8 0.2 1</ambient>
+            <diffuse>0.8 0.8 0.2 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 投放区三个筒（随机位置，在投放区内） -->
+    <!-- 筒1（直径15cm） -->
+    <include>
+      <uri>model://bucket_150_300</uri>
+      <pose>28.5 -1.2 0.15 0 0 0</pose>
+    </include>
+    <!-- 筒2（直径20cm） -->
+    <include>
+      <uri>model://bucket_200_300</uri>
+      <pose>31.2 1.0 0.15 0 0 0</pose>
+    </include>
+    <!-- 筒3（直径25cm） -->
+    <include>
+      <uri>model://bucket_250_300</uri>
+      <pose>33.8 -0.3 0.15 0 0 0</pose>
+    </include>
+
+    <!-- 投放区有效区（蓝色圆盘：B区半径0.5m，A区为筒内半径） -->
+    <!-- 筒1 有效区 -->
+    <model name="drop_zone_blue_b_1">
+      <static>true</static>
+      <link name="link">
+        <visual name="disk">
+          <geometry>
+            <cylinder>
+              <radius>0.5</radius>
+              <length>0.01</length>
+            </cylinder>
+          </geometry>
+          <pose>28.5 -1.2 0.005 0 0 0</pose>
+          <material>
+            <ambient>0.2 0.4 0.8 1</ambient>
+            <diffuse>0.2 0.4 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="drop_zone_blue_a_1">
+      <static>true</static>
+      <link name="link">
+        <visual name="disk">
+          <geometry>
+            <cylinder>
+              <radius>0.075</radius>
+              <length>0.01</length>
+            </cylinder>
+          </geometry>
+          <pose>28.5 -1.2 0.006 0 0 0</pose>
+          <material>
+            <ambient>0.1 0.2 0.6 1</ambient>
+            <diffuse>0.1 0.2 0.6 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <!-- 筒2 有效区 -->
+    <model name="drop_zone_blue_b_2">
+      <static>true</static>
+      <link name="link">
+        <visual name="disk">
+          <geometry>
+            <cylinder>
+              <radius>0.5</radius>
+              <length>0.01</length>
+            </cylinder>
+          </geometry>
+          <pose>31.2 1.0 0.005 0 0 0</pose>
+          <material>
+            <ambient>0.2 0.4 0.8 1</ambient>
+            <diffuse>0.2 0.4 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="drop_zone_blue_a_2">
+      <static>true</static>
+      <link name="link">
+        <visual name="disk">
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>0.01</length>
+            </cylinder>
+          </geometry>
+          <pose>31.2 1.0 0.006 0 0 0</pose>
+          <material>
+            <ambient>0.1 0.2 0.6 1</ambient>
+            <diffuse>0.1 0.2 0.6 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <!-- 筒3 有效区 -->
+    <model name="drop_zone_blue_b_3">
+      <static>true</static>
+      <link name="link">
+        <visual name="disk">
+          <geometry>
+            <cylinder>
+              <radius>0.5</radius>
+              <length>0.01</length>
+            </cylinder>
+          </geometry>
+          <pose>33.8 -0.3 0.005 0 0 0</pose>
+          <material>
+            <ambient>0.2 0.4 0.8 1</ambient>
+            <diffuse>0.2 0.4 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="drop_zone_blue_a_3">
+      <static>true</static>
+      <link name="link">
+        <visual name="disk">
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.01</length>
+            </cylinder>
+          </geometry>
+          <pose>33.8 -0.3 0.006 0 0 0</pose>
+          <material>
+            <ambient>0.1 0.2 0.6 1</ambient>
+            <diffuse>0.1 0.2 0.6 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ========= 灾情侦察区 ========= -->
+    <!-- 侦察区地面（灰色，尺寸8x5） -->
+    <model name="recon_area_ground">
+      <static>true</static>
+      <link name="link">
+        <visual name="ground">
+          <geometry>
+            <box>
+              <size>8 5 0.05</size>
+            </box>
+          </geometry>
+          <pose>55 0 -0.025 0 0 0</pose>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 侦察区五个筒（使用 bucket_200_300_1 到 _5，随机位置） -->
+    <include>
+      <uri>model://bucket_200_300_1</uri>
+      <pose>52.5 1.8 0.075 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://bucket_200_300_2</uri>
+      <pose>54.0 -1.2 0.075 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://bucket_200_300_3</uri>
+      <pose>56.5 0.5 0.075 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://bucket_200_300_4</uri>
+      <pose>58.0 -1.5 0.075 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://bucket_200_300_5</uri>
+      <pose>60.5 1.0 0.075 0 0 0</pose>
+    </include>
+
+    <!-- 危险化学品标识（随机选择三个已存在的模型，放在侦察区筒1、3、5的顶部） -->
+    <!-- 模型名来自你通过脚本生成的目录 -->
+    <include>
+      <uri>model://danger_1爆炸品</uri>
+      <pose>52.5 1.8 0.152 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://danger_3刺激性</uri>
+      <pose>56.5 0.5 0.152 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://danger_6生物危害</uri>
+      <pose>60.5 1.0 0.152 0 0 0</pose>
+    </include>
+
+  </world>
+</sdf>
