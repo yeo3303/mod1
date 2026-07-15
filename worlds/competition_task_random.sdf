@@ -140,6 +140,7 @@
 
     <model name="takeoff_pad">
       <static>true</static>
+      <pose>0 0 0 0 0 1.5708</pose> 
       <link name="link">
         <visual name="pad">
           <geometry>
@@ -154,22 +155,37 @@
             <diffuse>0.2 0.2 0.2 1</diffuse>
           </material>
         </visual>
-        <visual name="h_vertical">
+
+        <visual name="h_left_vertical">
           <geometry>
             <box>
-              <size>0.3 0.05 0.02</size>
+              <size>0.05 0.3 0.02</size>
             </box>
           </geometry>
-          <pose>0 0 0.02 0 0 0</pose>
+          <pose>-0.15 0 0.02 0 0 0</pose>
           <material>
             <ambient>1 1 1 1</ambient>
             <diffuse>1 1 1 1</diffuse>
           </material>
         </visual>
-        <visual name="h_horizontal">
+
+        <visual name="h_right_vertical">
           <geometry>
             <box>
               <size>0.05 0.3 0.02</size>
+            </box>
+          </geometry>
+          <pose>0.15 0 0.02 0 0 0</pose>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+
+        <visual name="h_middle_horizontal">
+          <geometry>
+            <box>
+              <size>0.3 0.05 0.02</size>
             </box>
           </geometry>
           <pose>0 0 0.02 0 0 0</pose>
@@ -397,15 +413,15 @@
     </include>
 
     <include>
-      <uri>model://danger_1</uri>
+      <uri>model://danger_1爆炸品</uri>
       <pose>55.5 1.8 0.152 0 0 0</pose>
     </include>
     <include>
-      <uri>model://danger_3</uri>
+      <uri>model://danger_3刺激性</uri>
       <pose>56.5 0.5 0.152 0 0 0</pose>
     </include>
     <include>
-      <uri>model://danger_6</uri>
+      <uri>model://danger_6生物危害</uri>
       <pose>59.0 1.0 0.152 0 0 0</pose>
     </include>
 
