@@ -246,6 +246,63 @@
       <pose>33.8 -0.3 0.15 0 0 0</pose>
     </include>
 
+    <model name="white_bucket_bottom_1">
+      <static>true</static>
+      <link name="link">
+        <visual name="disk">
+          <geometry>
+            <cylinder>
+              <radius>0.075</radius>
+              <length>0.01</length>
+            </cylinder>
+          </geometry>
+          <pose>30.5 -1.2 0.151 0 0 0</pose>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="white_bucket_bottom_2">
+      <static>true</static>
+      <link name="link">
+        <visual name="disk">
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>0.01</length>
+            </cylinder>
+          </geometry>
+          <pose>31.2 1.0 0.151 0 0 0</pose>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="white_bucket_bottom_3">
+      <static>true</static>
+      <link name="link">
+        <visual name="disk">
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.01</length>
+            </cylinder>
+          </geometry>
+          <pose>33.8 -0.3 0.151 0 0 0</pose>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
     <model name="drop_zone_blue_b_1">
       <static>true</static>
       <link name="link">
