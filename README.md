@@ -34,7 +34,7 @@ iris_with_standoffs是加了一个相机模型，从
       <sensor name="rangefinder_sensor" type="gpu_lidar">
         <pose degrees="true">0 0 0 0 90 0</pose>
         <always_on>1</always_on>
-        <update_rate>30</update_rate>
+        <update_rate>1</update_rate>
         <ray>
           <scan>
             <horizontal>
