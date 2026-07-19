@@ -16,7 +16,7 @@ iris_with_standoffs是加了一个相机模型，从
 #### 镭射
 在iris_with_ardupilot的model.sdf里最后一个<model>（文件末尾）前加上下方代码，因为我自己的model文件有点问题所以先不上传了。使用方法附在代码下面。
 ```
- <link name="rangefinder_link">
+    <link name="rangefinder_link">
       <gravity>0</gravity>
       <pose>0 0 -0.18 0 0 0</pose>
       <inertial>
