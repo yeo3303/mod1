@@ -45,7 +45,7 @@
       <visual name='base_visual'>
         <geometry>
           <mesh>
-            <uri>meshes/bucket_200_150_1.dae</uri>
+            <uri>meshes/bucket_200_150_5.dae</uri>
           </mesh>
         </geometry>
         <material>
