@@ -449,23 +449,23 @@
     </model>
 
     <include>
-      <uri>model://bucket_200_300_1</uri>
+      <uri>model://bucket_200_150_1</uri>
       <pose>55.5 1.8 0.075 0 0 0</pose>
     </include>
     <include>
-      <uri>model://bucket_200_300_2</uri>
+      <uri>model://bucket_200_150_2</uri>
       <pose>56.0 -1.2 0.075 0 0 0</pose>
     </include>
     <include>
-      <uri>model://bucket_200_300_3</uri>
+      <uri>model://bucket_200_150_3</uri>
       <pose>56.5 0.5 0.075 0 0 0</pose>
     </include>
     <include>
-      <uri>model://bucket_200_300_4</uri>
+      <uri>model://bucket_200_150_4</uri>
       <pose>58.0 -1.5 0.075 0 0 0</pose>
     </include>
     <include>
-      <uri>model://bucket_200_300_5</uri>
+      <uri>model://bucket_200_150_5</uri>
       <pose>59.0 1.0 0.075 0 0 0</pose>
     </include>
 
